@@ -39,9 +39,9 @@ class EmocionDAOImpl: EmocionDAO {
 
     override fun insertarEmocion(emocion: Emocion): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO EMOCION (ID_EMOCION, NOMBRE) VALUES (?, ?)"
+        val query = "INSERT INTO EMOCION (NOMBRE) VALUES (?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, emocion.id_emocion)
+        //ps?.setInt(1, emocion.id_emocion)
         ps?.setString(2, emocion.nombre)
         val result = ps?.executeUpdate()
         ps?.close()

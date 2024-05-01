@@ -2,6 +2,8 @@ import Menu.Menu
 
 
 fun main() {
-    println("***** Menú *****")
-
+    var menu = Menu();
+    menu.imprimirMenuPrincipal()
+    menu.imprimirMenuSecundario()
+    menu.accesoTabla()
 }

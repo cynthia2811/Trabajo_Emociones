@@ -40,10 +40,10 @@ class Grupo_TerapeutaDAOImpl: Grupo_TerapeutaDAO {
 
     override fun insertarGrupo(grupo: Grupo_Terapeuta): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO GRUPO_TERAPEUTA (ID_GRUPO, ID_TERAPEUTA) VALUES (?, ?)"
+        val query = "INSERT INTO GRUPO_TERAPEUTA (ID_TERAPEUTA) VALUES (?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, grupo.id_grupo)
-        ps?.setInt(2, grupo.id_terapeuta)
+        //ps?.setInt(1, grupo.id_grupo)
+        ps?.setInt(1, grupo.id_terapeuta)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()

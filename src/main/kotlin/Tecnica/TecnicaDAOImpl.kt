@@ -40,11 +40,11 @@ class TecnicaDAOImpl: TecnicaDAO {
 
     override fun insertarTecnica(tecnica: Tecnica): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO TECNICA (ID_TECNICA, DESCRIPCION, ID_METODOLOGIA) VALUES (?, ?, ?)"
+        val query = "INSERT INTO TECNICA (DESCRIPCION, ID_METODOLOGIA) VALUES (?, ?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, tecnica.id_tecnica)
-        ps?.setString(2, tecnica.descripcion)
-        ps?.setInt(3, tecnica.id_metodologia)
+        //ps?.setInt(1, tecnica.id_tecnica)
+        ps?.setString(1, tecnica.descripcion)
+        ps?.setInt(2, tecnica.id_metodologia)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()

@@ -40,10 +40,10 @@ class MetodologiaDAOImpl: MetodologiaDAO {
 
     override fun insertarMetodologia(metodologia: Metodologia): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO METODOLOGIA (ID_METODOLOGIA, NOMBRE) VALUES (?, ?)"
+        val query = "INSERT INTO METODOLOGIA (NOMBRE) VALUES (?, ?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, metodologia.id_metodologia)
-        ps?.setString(2, metodologia.nombre)
+        //ps?.setInt(1, metodologia.id_metodologia)
+        ps?.setString(1, metodologia.nombre)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()
