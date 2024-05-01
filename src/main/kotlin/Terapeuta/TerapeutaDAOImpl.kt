@@ -40,13 +40,13 @@ class TerapeutaDAOImpl: TerapeutaDAO {
 
     override fun insertarTerapeuta(terapeuta: Terapeuta): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO TERAPEUTA (ID_TERAPEUTA, NOMBRE, APELLIDO1, APELLIDO2, ID_METODOLOGIA) VALUES (?, ?, ?, ?, ?)"
+        val query = "INSERT INTO TERAPEUTA (NOMBRE, APELLIDO1, APELLIDO2, ID_METODOLOGIA) VALUES (?, ?, ?, ?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, terapeuta.id_terapeuta)
-        ps?.setString(2, terapeuta.nombre)
-        ps?.setString(3, terapeuta.apellido1)
-        ps?.setString(4, terapeuta.apellido2)
-        ps?.setInt(5, terapeuta.id_metodologia)
+        //ps?.setInt(1, terapeuta.id_terapeuta)
+        ps?.setString(1, terapeuta.nombre)
+        ps?.setString(2, terapeuta.apellido1)
+        ps?.setString(3, terapeuta.apellido2)
+        ps?.setInt(4, terapeuta.id_metodologia)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()

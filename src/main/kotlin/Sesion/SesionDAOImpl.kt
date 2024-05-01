@@ -40,11 +40,11 @@ class SesionDAOImpl: SesionDAO {
 
     override fun insertarSesion(sesion: Sesion): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO SESION (ID_SESION, ID_GRUPO, ID_FAMILIA) VALUES (?, ?, ?)"
+        val query = "INSERT INTO SESION (ID_GRUPO, ID_FAMILIA) VALUES (?, ?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, sesion.id_sesion)
-        ps?.setInt(2, sesion.id_grupo)
-        ps?.setInt(3, sesion.id_familia)
+        //ps?.setInt(1, sesion.id_sesion)
+        ps?.setInt(1, sesion.id_grupo)
+        ps?.setInt(2, sesion.id_familia)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()

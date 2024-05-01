@@ -38,12 +38,12 @@ class RolDAOImpl: RolDAO {
         return roles
     }
 
-    override fun insertaarRol(rol: Rol): Boolean {
+    override fun insertarRol(rol: Rol): Boolean {
         conexion.conectar()
-        val query = "INSERT INTO ROL (ID_ROL, DESCRIPCION) VALUES (?, ?)"
+        val query = "INSERT INTO ROL (DESCRIPCION) VALUES (?)"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, rol.id_rol)
-        ps?.setString(2, rol.descripcion)
+        //ps?.setInt(1, rol.id_rol)
+        ps?.setString(1, rol.descripcion)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()
@@ -55,7 +55,7 @@ class RolDAOImpl: RolDAO {
         val query = "UPDATE ROL SET descripcion = ? WHERE id_rol = ?"
         val ps = conexion.getPreparedStatement(query)
         ps?.setInt(1, rol.id_rol)
-        ps?.setString(2, rol.descripcion)
+        ps?.setString(1, rol.descripcion)
         val result = ps?.executeUpdate()
         ps?.close()
         conexion.desconectar()
