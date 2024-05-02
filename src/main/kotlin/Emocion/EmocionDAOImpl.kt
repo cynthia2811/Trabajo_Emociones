@@ -56,8 +56,8 @@ class EmocionDAOImpl: EmocionDAO {
         if (emocionBuscada != null){
             val query = "UPDATE EMOCION SET nombre = ? WHERE id_emocion = ?"
             val ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, emocion.id_emocion)
-            ps?.setString(2, emocion.nombre)
+            ps?.setString(1, emocion.nombre)
+            ps?.setInt(2, emocion.id_emocion)
             result = ps?.executeUpdate()
             ps?.close()
         }

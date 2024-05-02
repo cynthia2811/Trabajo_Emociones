@@ -55,10 +55,10 @@ class Grupo_TerapeutaDAOImpl: Grupo_TerapeutaDAO {
         conexion.conectar()
         var result:Int? = null
         if (grupoBuscado != null){
-            val query = "UPDATE GRUPO_TERAPEUTA SET descripcion = ? WHERE id_grupo = ?"
+            val query = "UPDATE GRUPO_TERAPEUTA SET id_terapeuta = ? WHERE id_grupo = ?"
             val ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, grupo.id_grupo)
-            ps?.setInt(2, grupo.id_terapeuta)
+            ps?.setInt(1, grupo.id_terapeuta)
+            ps?.setInt(2, grupo.id_grupo)
             result = ps?.executeUpdate()
             ps?.close()
         }

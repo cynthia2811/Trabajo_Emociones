@@ -57,9 +57,9 @@ class SesionDAOImpl: SesionDAO {
         if (sesionBuscada != null){
             val query = "UPDATE SESION SET id_grupo, id_familia = ? WHERE id_sesion = ?"
             val ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, sesion.id_sesion)
-            ps?.setInt(2, sesion.id_grupo)
-            ps?.setInt(3, sesion.id_familia)
+            ps?.setInt(1, sesion.id_grupo)
+            ps?.setInt(2, sesion.id_familia)
+            ps?.setInt(3, sesion.id_sesion)
             result = ps?.executeUpdate()
             ps?.close()
         }
