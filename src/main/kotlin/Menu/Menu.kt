@@ -87,14 +87,15 @@ class Menu {
                 try {
                     var individuo = Individuo(
                         id_individuo = readln().toInt(),
-                        nombre = readln(),
-                        apellido1 = readln(),
-                        apellido2 = readln(),
+                        nombre = readln().toString(),
+                        apellido1 = readln().toString(),
+                        apellido2 = readln().toString(),
                         id_rol = readln().toInt(),
                         id_familia = readln().toInt()
                     )
                     IndividuoDAOImpl().modificarIndividuo(individuo)
                 } catch (e: Exception) {
+                    println(e)
                     println("Has introducido un dato mal")
                 }
             }
