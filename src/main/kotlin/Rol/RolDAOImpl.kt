@@ -57,8 +57,8 @@ class RolDAOImpl: RolDAO {
         if (rolBuscado != null){
             val query = "UPDATE ROL SET descripcion = ? WHERE id_rol = ?"
             val ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, rol.id_rol)
             ps?.setString(1, rol.descripcion)
+            ps?.setInt(2, rol.id_rol)
             result = ps?.executeUpdate()
             ps?.close()
         }

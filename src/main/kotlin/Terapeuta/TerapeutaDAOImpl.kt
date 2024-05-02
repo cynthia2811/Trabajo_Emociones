@@ -60,11 +60,11 @@ class TerapeutaDAOImpl: TerapeutaDAO {
         if (terapeutaBuscado != null){
             val query = "UPDATE TERAPEUTA SET nombre, apellido1, apellido2, id_metodologia = ? WHERE id_terapeuta = ?"
             val ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, terapeuta.id_terapeuta)
-            ps?.setString(2, terapeuta.nombre)
-            ps?.setString(3, terapeuta.apellido1)
-            ps?.setString(4, terapeuta.apellido2)
-            ps?.setInt(5, terapeuta.id_metodologia)
+            ps?.setString(1, terapeuta.nombre)
+            ps?.setString(2, terapeuta.apellido1)
+            ps?.setString(3, terapeuta.apellido2)
+            ps?.setInt(4, terapeuta.id_metodologia)
+            ps?.setInt(5, terapeuta.id_terapeuta)
             result = ps?.executeUpdate()
             ps?.close()
         }
