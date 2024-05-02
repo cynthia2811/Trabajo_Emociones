@@ -52,17 +52,23 @@ class IndividuoDAOImpl: IndividuoDAO {
     }
 
     override fun modificarIndividuo(individuo: Individuo): Boolean {
+        //conexion.conectar()
+        var individuoBuscado =buscarIndividuo(individuo.id_individuo)
         conexion.conectar()
-        val query = "UPDATE INDIVIDUO SET nombre,apellido1,apellido2 = ? WHERE id_individuo = ?"
+        var result:Int? = null
+        if (individuoBuscado != null){
+        val query = "UPDATE INDIVIDUO SET nombre = ?,apellido1 = ?,apellido2 = ?,id_rol =?, id_familia = ? WHERE id_individuo = ?"
         val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, individuo.id_individuo)
-        ps?.setString(2, individuo.nombre)
-        ps?.setString(3, individuo.apellido1)
-        ps?.setString(4, individuo.apellido2)
-        ps?.setInt(5, individuo.id_rol)
-        ps?.setInt(6, individuo.id_familia)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        //ps?.setInt(1, individuo.id_individuo)
+            ps?.setString(1, individuo.nombre)
+            ps?.setString(2, individuo.apellido1)
+            ps?.setString(3, individuo.apellido2)
+            ps?.setInt(4, individuo.id_rol)
+            ps?.setInt(5, individuo.id_familia)
+            ps?.setInt(6, individuoBuscado.id_individuo)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }
