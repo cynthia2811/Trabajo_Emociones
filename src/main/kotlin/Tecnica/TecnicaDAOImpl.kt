@@ -18,7 +18,6 @@ class TecnicaDAOImpl: TecnicaDAO {
                 rs.getInt("ID_TECNICA"),
                 rs.getString("DESCRIPCION"),
                 rs.getInt("ID_METODOLOGIA"),
-                readln()
             )
         }
         ps?.close()
@@ -39,7 +38,6 @@ class TecnicaDAOImpl: TecnicaDAO {
                 rs.getInt("ID_TECNICA"),
                 rs.getString("DESCRIPCION"),
                 rs.getInt("ID_METODOLOGIA"),
-                readln()
             )
             tecnicas.add(tecnica)
         }
