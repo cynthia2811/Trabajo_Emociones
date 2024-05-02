@@ -50,13 +50,17 @@ class EmocionDAOImpl: EmocionDAO {
     }
 
     override fun modificarEmocion(emocion: Emocion): Boolean {
+        var emocionBuscada =buscarEmocion(emocion.id_emocion)
         conexion.conectar()
-        val query = "UPDATE EMOCION SET nombre = ? WHERE id_emocion = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, emocion.id_emocion)
-        ps?.setString(2, emocion.nombre)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (emocionBuscada != null){
+            val query = "UPDATE EMOCION SET nombre = ? WHERE id_emocion = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, emocion.id_emocion)
+            ps?.setString(2, emocion.nombre)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

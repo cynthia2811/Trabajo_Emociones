@@ -51,13 +51,17 @@ class RolDAOImpl: RolDAO {
     }
 
     override fun modificarRol(rol: Rol): Boolean {
+        var rolBuscado =buscarRol(rol.id_rol)
         conexion.conectar()
-        val query = "UPDATE ROL SET descripcion = ? WHERE id_rol = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, rol.id_rol)
-        ps?.setString(1, rol.descripcion)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (rolBuscado != null){
+            val query = "UPDATE ROL SET descripcion = ? WHERE id_rol = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, rol.id_rol)
+            ps?.setString(1, rol.descripcion)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

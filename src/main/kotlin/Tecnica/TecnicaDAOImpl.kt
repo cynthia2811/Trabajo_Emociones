@@ -52,14 +52,18 @@ class TecnicaDAOImpl: TecnicaDAO {
     }
 
     override fun modificarTecnica(tecnica: Tecnica): Boolean {
+        var tecnicaBuscada =buscarTecnica(tecnica.id_tecnica)
         conexion.conectar()
-        val query = "UPDATE TECNICA SET descripcion, id_metodologia = ? WHERE id_tecnica = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, tecnica.id_tecnica)
-        ps?.setString(2, tecnica.descripcion)
-        ps?.setInt(3, tecnica.id_metodologia)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (tecnicaBuscada != null){
+            val query = "UPDATE TECNICA SET descripcion, id_metodologia = ? WHERE id_tecnica = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, tecnica.id_tecnica)
+            ps?.setString(2, tecnica.descripcion)
+            ps?.setInt(3, tecnica.id_metodologia)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

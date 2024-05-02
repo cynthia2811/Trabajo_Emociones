@@ -22,7 +22,6 @@ class SesionDAOImpl: SesionDAO {
     }
 
 
-
     override fun sacarSesion(): List<Sesion> {
         conexion.conectar()
         val query = "SELECT * FROM SESION"
@@ -52,14 +51,18 @@ class SesionDAOImpl: SesionDAO {
     }
 
     override fun modificarSesion(sesion: Sesion): Boolean {
+        var sesionBuscada =buscarSesion(sesion.id_sesion)
         conexion.conectar()
-        val query = "UPDATE SESION SET id_grupo, id_familia = ? WHERE id_sesion = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, sesion.id_sesion)
-        ps?.setInt(2, sesion.id_grupo)
-        ps?.setInt(3, sesion.id_familia)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (sesionBuscada != null){
+            val query = "UPDATE SESION SET id_grupo, id_familia = ? WHERE id_sesion = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, sesion.id_sesion)
+            ps?.setInt(2, sesion.id_grupo)
+            ps?.setInt(3, sesion.id_familia)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

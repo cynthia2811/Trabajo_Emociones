@@ -49,13 +49,17 @@ class FamiliaDAOImpl: FamiliaDAO {
     }
 
     override fun modificarFamilia(familia: Familia): Boolean {
+        var familiaBuscada=buscarFamilia(familia.id_familia)
         conexion.conectar()
-        val query = "UPDATE FAMILIA SET descripcion = ? WHERE id_familia = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setString(1, familia.descripcion)
-        ps?.setInt(2, familia.id_familia)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (familiaBuscada != null){
+            val query = "UPDATE FAMILIA SET descripcion = ? WHERE id_familia = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setString(1, familia.descripcion)
+            ps?.setInt(2, familia.id_familia)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
 

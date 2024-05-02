@@ -51,13 +51,17 @@ class MetodologiaDAOImpl: MetodologiaDAO {
     }
 
     override fun modificarMetodologia(metodologia: Metodologia): Boolean {
+        var metodologiaBuscada =buscarMetodologia(metodologia.id_metodologia)
         conexion.conectar()
-        val query = "UPDATE METODOLOGIA SET nombre = ? WHERE id_metodologia = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, metodologia.id_metodologia)
-        ps?.setString(2, metodologia.nombre)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (metodologiaBuscada != null){
+            val query = "UPDATE METODOLOGIA SET nombre = ? WHERE id_metodologia = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, metodologia.id_metodologia)
+            ps?.setString(2, metodologia.nombre)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

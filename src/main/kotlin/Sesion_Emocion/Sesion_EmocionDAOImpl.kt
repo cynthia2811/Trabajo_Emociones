@@ -52,13 +52,17 @@ class Sesion_EmocionDAOImpl: Sesion_EmocionDAO {
     }
 
     override fun modificarSesionEmo(sesionEmo: Sesion_Emocion): Boolean {
+        var sesionEmoBuscada =buscarSesionEmocion(sesionEmo.id_sesion,sesionEmo.id_emocion)
         conexion.conectar()
-        val query = "UPDATE SESION_EMOCION SET id_sesion = ?, id_emocion = ? WHERE id_sesion = ? OR id_emocion = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, sesionEmo.id_sesion)
-        ps?.setInt(2, sesionEmo.id_emocion)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (sesionEmoBuscada != null){
+            val query = "UPDATE SESION_EMOCION SET id_sesion = ?, id_emocion = ? WHERE id_sesion = ? OR id_emocion = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, sesionEmo.id_sesion)
+            ps?.setInt(2, sesionEmo.id_emocion)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

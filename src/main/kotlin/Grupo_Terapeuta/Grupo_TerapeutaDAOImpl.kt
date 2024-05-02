@@ -51,13 +51,17 @@ class Grupo_TerapeutaDAOImpl: Grupo_TerapeutaDAO {
     }
 
     override fun modificarGrupo(grupo: Grupo_Terapeuta): Boolean {
+        var grupoBuscado =buscarGrupo(grupo.id_grupo)
         conexion.conectar()
-        val query = "UPDATE GRUPO_TERAPEUTA SET descripcion = ? WHERE id_grupo = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, grupo.id_grupo)
-        ps?.setInt(2, grupo.id_terapeuta)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (grupoBuscado != null){
+            val query = "UPDATE GRUPO_TERAPEUTA SET descripcion = ? WHERE id_grupo = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, grupo.id_grupo)
+            ps?.setInt(2, grupo.id_terapeuta)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
     }

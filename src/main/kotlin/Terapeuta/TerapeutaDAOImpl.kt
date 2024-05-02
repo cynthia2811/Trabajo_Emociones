@@ -14,7 +14,7 @@ class TerapeutaDAOImpl: TerapeutaDAO {
         val rs = ps?.executeQuery()
         var terapeuta: Terapeuta? = null
         if (rs?.next() == true) {
-            val terapeuta = Terapeuta(rs.getInt("ID_TERAPEUTA"), rs.getString("NOMBRE"), rs.getString("APELLIDO1"), rs.getString("APELLIDO2"), rs.getInt("ID_METODOLOGIA"))
+            val terapeuta = Terapeuta(rs.getInt(id_terapeuta),rs.getString("NOMBRE"), rs.getString("APELLIDO1"), rs.getString("APELLIDO2"), rs.getInt("ID_METODOLOGIA"))
         }
         ps?.close()
         conexion.desconectar()
@@ -54,16 +54,20 @@ class TerapeutaDAOImpl: TerapeutaDAO {
     }
 
     override fun modificarTerapeuta(terapeuta: Terapeuta): Boolean {
+        var terapeutaBuscado =buscarTerapeuta(terapeuta.id_terapeuta)
         conexion.conectar()
-        val query = "UPDATE TERAPEUTA SET nombre, apellido1, apellido2, id_metodologia = ? WHERE id_terapeuta = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, terapeuta.id_terapeuta)
-        ps?.setString(2, terapeuta.nombre)
-        ps?.setString(3, terapeuta.apellido1)
-        ps?.setString(4, terapeuta.apellido2)
-        ps?.setInt(5, terapeuta.id_metodologia)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var result:Int? = null
+        if (terapeutaBuscado != null){
+            val query = "UPDATE TERAPEUTA SET nombre, apellido1, apellido2, id_metodologia = ? WHERE id_terapeuta = ?"
+            val ps = conexion.getPreparedStatement(query)
+            ps?.setInt(1, terapeuta.id_terapeuta)
+            ps?.setString(2, terapeuta.nombre)
+            ps?.setString(3, terapeuta.apellido1)
+            ps?.setString(4, terapeuta.apellido2)
+            ps?.setInt(5, terapeuta.id_metodologia)
+            result = ps?.executeUpdate()
+            ps?.close()
+        }
         conexion.desconectar()
         return result == 1
 
