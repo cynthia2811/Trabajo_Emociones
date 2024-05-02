@@ -14,7 +14,12 @@ class TecnicaDAOImpl: TecnicaDAO {
         val rs = ps?.executeQuery()
         var tecnica: Tecnica? = null
         if (rs?.next() == true) {
-            tecnica = Tecnica(rs.getInt("ID_TECNICA"), rs.getString("DESCRIPCION"), rs.getInt("ID_METODOLOGIA"))
+            tecnica = Tecnica(
+                rs.getInt("ID_TECNICA"),
+                rs.getString("DESCRIPCION"),
+                rs.getInt("ID_METODOLOGIA"),
+                readln()
+            )
         }
         ps?.close()
         conexion.desconectar()
@@ -30,7 +35,12 @@ class TecnicaDAOImpl: TecnicaDAO {
         val rs = st?.executeQuery(query)
         val tecnicas = mutableListOf<Tecnica>()
         while (rs?.next() == true) {
-            val tecnica = Tecnica(rs.getInt("ID_TECNICA"), rs.getString("DESCRIPCION"), rs.getInt("ID_METODOLOGIA"))
+            val tecnica = Tecnica(
+                rs.getInt("ID_TECNICA"),
+                rs.getString("DESCRIPCION"),
+                rs.getInt("ID_METODOLOGIA"),
+                readln()
+            )
             tecnicas.add(tecnica)
         }
         st?.close()
